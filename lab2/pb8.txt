@@ -1,0 +1,48 @@
+bits 32 ; assembling for the 32 bits architecture
+
+; declare the EntryPoint (a label defining the very first instruction of the program)
+global start        
+
+; declare external functions needed by our program
+extern exit               
+import exit msvcrt.dll    
+
+
+segment data use32 class=data
+    hello db 'hello world'
+    a dw 3
+    b dw 2
+    c dw 7
+    d dw 1
+segment code use32 class=code
+    start:
+        mov eax, 0
+        mov ax, 0
+        mov bx, 0
+        
+        mov ax, 100
+        mul word[a]
+        
+        add bx, ax
+        add bx, [d]
+        add bx, 5
+        
+        
+        
+        mov ax, 0
+        mov ax, 75
+        mul word[b]
+        
+        sub bx, ax
+        mov ax, bx
+        
+        mov cl, 0
+        mov cl, [c]
+        sub cl, 5
+        
+        div cl
+        
+        
+        
+        push    dword 0      ; push the parameter for exit onto the stack
+        call    [exit]       ; call exit to terminate the program
